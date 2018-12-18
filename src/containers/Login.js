@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import {
-  Button,
   FormGroup,
   FormControl,
   ControlLabel,
@@ -12,12 +11,14 @@ import {
 import "./Login.css";
 import muhome from "../images/muhome.png";
 import { Auth } from "aws-amplify";
+import LoaderButton from "../components/LoaderButton";
 
 class Login extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      isLoading: false,
       email: "",
       password: ""
     };
@@ -35,6 +36,8 @@ class Login extends Component {
 
   handleSubmit = async event => {
     event.preventDefault();
+
+    this.setState({ isLoading: true });
 
     try {
       await Auth.signIn(this.state.email, this.state.password);
@@ -77,14 +80,15 @@ class Login extends Component {
                       type="password"
                     />
                   </FormGroup>
-                  <Button
+                  <LoaderButton
                     block
                     bsSize="large"
                     disabled={!this.validateForm()}
                     type="submit"
-                  >
-                    Login
-                  </Button>
+                    isLoading={this.state.isLoading}
+                    text="Login"
+                    loadingText="Logging in..."
+                  />
                 </form>
               </div>
             </Col>
