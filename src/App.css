@@ -5,3 +5,8 @@
 .App .navbar-brand {
   font-weight: bold;
 }
+.backg {
+  background-image: url("");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
